@@ -25,7 +25,7 @@ export default function ProductCard({product}: TProductCardProp) {
         />
       </div>
       <div className="flex justify-end">
-        <span className="m-2 text-2xl">{product.price}</span>
+        <span className="m-2 text-2xl">R$ {product.price}</span>
       </div>
     </div>
   )
