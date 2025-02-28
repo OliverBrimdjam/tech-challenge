@@ -9,8 +9,8 @@ export default function ProductsList({products}: TProductListProps) {
 
   return (
     <section aria-labelledby="products-list">
-      <h2 id="products-list">Products List</h2>
-      <div className="flex-1 bg-blue-400 flex flex-wrap ">{products.map((product) => {
+      <h2 id="products-list" className=" text-3xl m-2">Product List</h2>
+      <div className="flex-1 flex flex-wrap ">{products.map((product) => {
         return (
           <ProductCard key={product.id} product={product} />
         );
