@@ -1,6 +1,7 @@
 'use client'
 
 import { TProduct } from "@/@types/TProduct";
+import nameTrimmer from "@/utils/nameTrimmer";
 import React, { useState, useEffect, useContext, createContext } from "react";
 
 type TProductContextType = {
@@ -29,7 +30,8 @@ export function ProductProvider ({ children, startProducts }: TProductProviderPr
       category ? `https://fakestoreapi.com/products/category/${category}` : 'https://fakestoreapi.com/products'
     );
     const data = await response.json();
-    setProducts(isOrdered ? sortProductsByPrice(data) : data);
+    const trimmedData = nameTrimmer(data);
+    setProducts(isOrdered ? sortProductsByPrice(trimmedData) : trimmedData);
   }
 
   const sortProductsByPrice = (products: TProduct[]) => {
