@@ -1,35 +1,75 @@
 'use client'
 
-import { TProduct } from "@/@types/TProduct";
+import { TPaginatedData } from "@/@types/TPaginatedData";
+import apiFetchProductsService from "@/services/apiFetchService";
 import React, { useState, useEffect, useContext, createContext } from "react";
 
 type TProductContextType = {
-  products: TProduct[];
+  products: TPaginatedData;
   setCategory: (category: string | null) => void;
+  toggleOrder: () => void;
+  isOrdered: boolean;
+  setCurrentPage: (page: number) => void;
 }
 
-type TProductProviderProps = { children: React.ReactNode; startProducts: TProduct[] }
+type TProductProviderProps = { children: React.ReactNode; startProducts: TPaginatedData }
 
-const ProductContext = createContext<TProductContextType>({ products: [], setCategory: () => {} });
+const ProductContext = createContext<TProductContextType>({ 
+  products: {
+    data: [],
+    total: 0,
+    current_page: 1,
+    per_page: 0,
+    total_pages: 0
+  }, 
+  setCategory: () => {}, 
+  toggleOrder: () => {},
+  isOrdered: false,
+  setCurrentPage: () => {}
+});
 
 export function ProductProvider ({ children, startProducts }: TProductProviderProps) {
-  const [products, setProducts] = useState<TProduct[]>(startProducts);
+  const [products, setProducts] = useState<TPaginatedData>(startProducts);
   const [category, setCategory] = useState<string | null>(null);
+  const [isOrdered, setIsOrdered] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchProducts = async function (category: string | null) {
-    const response = await fetch(
-      category ? `https://fakestoreapi.com/products/category/${category}` : 'https://fakestoreapi.com/products'
+  const fetchProducts = async function (page: number, per_page: number, category: string | null, ) {
+    const pageData: TPaginatedData = await apiFetchProductsService(page, per_page, category)
+
+    setProducts(isOrdered ? sortProductsByPrice(pageData) : pageData);
+  }
+
+  const sortProductsByPrice = (pageData: TPaginatedData) => {
+    return {
+      ...pageData,
+      data: [...pageData.data].sort((a, b) => a.price - b.price)
+    };
+  }
+
+  const toggleOrder = () => {
+    setIsOrdered(prevIsOrdered => !prevIsOrdered);
+    setProducts(prevProductsList => !isOrdered 
+      ? sortProductsByPrice(prevProductsList) 
+      : {
+          ...prevProductsList,
+          data: [...prevProductsList.data].sort((a, b) => a.id - b.id)
+        }
     );
-    const data = await response.json();
-    setProducts(data);
   }
 
   useEffect(() => {
-    fetchProducts(category);
-  },[category]);
+    fetchProducts(currentPage, 6, category);
+  }, [category, currentPage]);
 
   return (
-    <ProductContext.Provider value={{ products, setCategory }}>
+    <ProductContext.Provider value={{ 
+      products, 
+      setCategory, 
+      toggleOrder,
+      isOrdered,
+      setCurrentPage 
+    }}>
       {children}
     </ProductContext.Provider>
   );
