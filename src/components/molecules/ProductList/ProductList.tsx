@@ -13,13 +13,12 @@ export default function ProductsList() {
         <h2 id="products-list" className=" text-3xl m-2">Product List</h2>
         <Button className="my-auto mx-6" onClick={toggleOrder}>Order By Price</Button>
       </div>
-      <div className="flex-1 flex flex-wrap ">{products.map((product) => {
+      <div className="flex-1 flex flex-wrap ">{products.data.map((product) => {
         return (
           <ProductCard key={product.id} product={product} />
         );
       }
       )}
-      <button>order by price</button>
       </div>
     </section>
   )
