@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const productFormSchema = z.object({
+export const editProductFormSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters").max(30, "Title must be less than 30 characters"),
   price: z.string().transform(Number).pipe(z.number().positive("Price must be greater than 0")),
   description: z.string().min(10, "Description must be at least 10 characters"),
@@ -12,4 +12,4 @@ export const productFormSchema = z.object({
   })
 });
 
-export type ProductFormData = z.infer<typeof productFormSchema>; 
+export type ProductFormData = z.infer<typeof editProductFormSchema>; 

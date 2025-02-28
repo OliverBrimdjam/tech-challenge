@@ -1,8 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
-import Button from '@/components/atoms/Button/Button'
 import { getProductById } from '@/services/apiFetchService'
 import { EditProductForm } from '@/components/molecules/EditProductForm/EditProductForm'
+import { DeleteProductForm } from '@/components/molecules/DeleteProductForm/DeleteProductForm'
+import Link from 'next/link'
+import { ArrowLeftIcon } from 'lucide-react'
 type Props = {
   params: {
     productId: string
@@ -14,7 +16,7 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <>
-      <header className="bg-amber-400 h-16"></header>
+      <header className="bg-amber-400 h-16"><Link href={`/`}><ArrowLeftIcon className="w-12 h-12 mx-4 my-auto" /></Link></header>
       <main className="flex flex-row h-[90vh] bg-[#DDD8D9]">
         <div className='flex flex-row gap-4 mx-20 my-6'>
           <div className=' w-1/3 h-fit bg-white m-4 rounded-md'>
@@ -35,7 +37,7 @@ export default async function ProductPage({ params }: Props) {
           </div>
           <div className='flex flex-col gap-2 justify-start'>
               <EditProductForm product={product} />
-              <Button>Delete</Button>
+              <DeleteProductForm product={product} />
           </div>
         </div>
       </main>
