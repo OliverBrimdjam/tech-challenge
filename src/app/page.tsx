@@ -1,4 +1,5 @@
 import { TProduct } from "@/@types/TProduct";
+import nameTrimmer from "@/utils/nameTrimmer";
 import CategoryList from "@/components/molecules/CategoryList/CategoryList";
 import ProductsList from "@/components/molecules/ProductList/ProductList";
 import { ProductProvider } from "@/contexts/ProductContext";
@@ -6,9 +7,10 @@ import { ProductProvider } from "@/contexts/ProductContext";
 export default async function Home() {
   const categories = await fetchCategories();
   const products: TProduct[] = await fetchAllProducts();
+  const trimmedProducts = nameTrimmer(products);
 
   return (
-    <ProductProvider startProducts={products}>
+    <ProductProvider startProducts={trimmedProducts}>
       <header className="bg-amber-400 h-16"></header>
       <main className="flex flex-row bg-[#DDD8D9]">
         <CategoryList categories={categories} />
