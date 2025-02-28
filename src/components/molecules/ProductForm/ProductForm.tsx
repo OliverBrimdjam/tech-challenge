@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { productFormSchema, type ProductFormData } from "./productFormSchema"
 import { useState } from "react"
+import { toast } from "sonner"
 
 export function ProductForm() {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,11 +41,12 @@ export function ProductForm() {
 
       if (response.ok) {
         setIsOpen(false);
-        console.log('Product created successfully');
+        toast.success('Product created successfully!');
         reset();
       }
     } catch (error) {
       console.error('Error creating product:', error);
+      toast.error('Failed to create product');
     }
   };
 
