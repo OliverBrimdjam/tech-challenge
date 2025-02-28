@@ -2,11 +2,11 @@ import CategoryList from "@/components/molecules/CategoryList/CategoryList";
 import ProductsList from "@/components/molecules/ProductList/ProductList";
 import { ProductProvider } from "@/contexts/ProductContext";
 import { TPaginatedData } from "@/@types/TPaginatedData";
-import apiFetchProductsService from "@/services/apiFetchService";
+import getAllProductsOrByCategory from "@/services/apiFetchService";
 
 export default async function Home() {
   const categories = await fetchCategories();
-  const products: TPaginatedData = await apiFetchProductsService();
+  const products: TPaginatedData = await getAllProductsOrByCategory();
 
   return (
     <ProductProvider startProducts={products}>
