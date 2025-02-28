@@ -9,7 +9,7 @@ export default async function Home() {
   return (
     <>
       <header className="bg-amber-400 h-16">olá</header>
-      <main className="flex flex-row">
+      <main className="flex flex-row bg-[#DDD8D9]">
         <CategoryList categories={categories} />
         <ProductsList products={products} />
       </main>
