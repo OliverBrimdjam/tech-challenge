@@ -6,7 +6,7 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 type TProductContextType = {
   products: TProduct[];
   setCategory: (category: string | null) => void;
-  setIsOrdered: () => void;
+  toggleOrder: () => void;
   isOrdered: boolean;
 }
 
@@ -15,7 +15,7 @@ type TProductProviderProps = { children: React.ReactNode; startProducts: TProduc
 const ProductContext = createContext<TProductContextType>({ 
   products: [], 
   setCategory: () => {}, 
-  setIsOrdered: () => {},
+  toggleOrder: () => {},
   isOrdered: false 
 });
 
@@ -37,9 +37,8 @@ export function ProductProvider ({ children, startProducts }: TProductProviderPr
   }
 
   const toggleOrder = () => {
-    setIsOrdered(prev => !prev);
-    setProducts(prev => !isOrdered ? sortProductsByPrice(prev) : [...prev].sort((a, b) => a.id - b.id));
-    console.log('click')
+    setIsOrdered(prevIsOrdered => !prevIsOrdered);
+    setProducts(prevProductsList => !isOrdered ? sortProductsByPrice(prevProductsList) : [...prevProductsList].sort((a, b) => a.id - b.id));
   }
 
   useEffect(() => {
@@ -50,7 +49,7 @@ export function ProductProvider ({ children, startProducts }: TProductProviderPr
     <ProductContext.Provider value={{ 
       products, 
       setCategory, 
-      setIsOrdered: toggleOrder,
+      toggleOrder,
       isOrdered 
     }}>
       {children}
