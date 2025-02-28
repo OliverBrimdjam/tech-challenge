@@ -38,17 +38,13 @@ export function ProductProvider ({ children, startProducts }: TProductProviderPr
 
   const toggleOrder = () => {
     setIsOrdered(prev => !prev);
-    setProducts(prev => isOrdered ? prev : sortProductsByPrice(prev));
+    setProducts(prev => !isOrdered ? sortProductsByPrice(prev) : [...prev].sort((a, b) => a.id - b.id));
     console.log('click')
   }
 
   useEffect(() => {
     fetchProducts(category);
   },[category]);
-
-  useEffect(() => {
-    setProducts(prev => isOrdered ? sortProductsByPrice(prev) : [...prev].sort((a, b) => a.id - b.id));
-  }, [isOrdered]);
 
   return (
     <ProductContext.Provider value={{ 
