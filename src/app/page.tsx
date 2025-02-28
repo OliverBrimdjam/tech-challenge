@@ -9,7 +9,7 @@ export default async function Home() {
 
   return (
     <ProductProvider startProducts={products}>
-      <header className="bg-amber-400 h-16">olá</header>
+      <header className="bg-amber-400 h-16"></header>
       <main className="flex flex-row bg-[#DDD8D9]">
         <CategoryList categories={categories} />
         <ProductsList />
