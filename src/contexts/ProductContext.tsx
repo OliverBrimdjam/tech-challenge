@@ -1,7 +1,7 @@
 'use client'
 
 import { TPaginatedData } from "@/@types/TPaginatedData";
-import apiFetchService from "@/services/apiFetchService";
+import apiFetchProductsService from "@/services/apiFetchService";
 import React, { useState, useEffect, useContext, createContext } from "react";
 
 type TProductContextType = {
@@ -32,7 +32,7 @@ export function ProductProvider ({ children, startProducts }: TProductProviderPr
   const [isOrdered, setIsOrdered] = useState<boolean>(false);
 
   const fetchProducts = async function (page: number, per_page: number, category: string | null, ) {
-    const pageData: TPaginatedData = await apiFetchService(page, per_page, category)
+    const pageData: TPaginatedData = await apiFetchProductsService(page, per_page, category)
 
     setProducts(isOrdered ? sortProductsByPrice(pageData) : pageData);
   }

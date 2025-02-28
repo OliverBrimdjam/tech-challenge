@@ -2,7 +2,7 @@ import { TPaginatedData } from "@/@types/TPaginatedData";
 import { TProduct } from "@/@types/TProduct";
 import nameTrimmer from "@/utils/nameTrimmer";
 
-export default async function apiFetchService(page: number = 1, per_page: number = 6, category: string | null = null) {
+export default async function apiFetchProductsService(page: number = 1, per_page: number = 6, category: string | null = null) {
   const response = await fetch(
     category ? `https://fakestoreapi.com/products/category/${category}` : 'https://fakestoreapi.com/products'
   );
