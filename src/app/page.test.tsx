@@ -8,11 +8,13 @@ describe('Home Page (products page): ', () => {
     const header = screen.getByRole('banner');
     const footer = screen.getByRole('contentinfo');
     const main = screen.getByRole('main');
-    // const section = screen.getByRole('region');
+    const section = screen.getByRole('region', { name: /Products List/i });
+    const section2 = screen.getByRole('region', { name: /Categories/i });
 
     expect(header).toBeInTheDocument();
     expect(footer).toBeInTheDocument();
     expect(main).toBeInTheDocument();
-    // expect(section).toBeInTheDocument();
+    expect(section).toBeInTheDocument();
+    expect(section2).toBeInTheDocument();
   });
 });

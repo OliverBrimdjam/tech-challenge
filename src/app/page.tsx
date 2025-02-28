@@ -3,16 +3,18 @@ export default function Home() {
     <>
       <header>olá</header>
       <main>
-        <section>
+        <section aria-labelledby="categories">
           <nav>
-            <span>Categories</span>
+            <h2 id="categories">Categories</h2>
             <button>1</button>
             <button>1</button>
             <button>1</button>
             <button>1</button>
           </nav>
         </section>
-        <section>products list</section>
+        <section aria-labelledby="products-list">
+          <h2 id="products-list">Products List</h2>
+        </section>
       </main>
       <footer>footer</footer>
     </>
