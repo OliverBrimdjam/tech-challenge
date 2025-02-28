@@ -7,11 +7,11 @@ type TCategoryListProps = {
 export default function CategoryList({categories}: TCategoryListProps) {
   return (
     <section aria-labelledby="categories">
-      <nav>
-        <h2 id="categories">Categories</h2>
+      <nav className="flex flex-col w-[320px]">
+        <h2 className="text-3xl m-2" id="categories">Categories</h2>
         {categories.map((category)=>{
           return(
-            <Button key={category}>{category}</Button>
+            <Button className="m-2" key={category}>{category}</Button>
           );
         })}
       </nav>
