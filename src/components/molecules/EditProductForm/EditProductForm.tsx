@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
+import { TProduct } from "@/@types/TProduct"
 import {
   Dialog,
   DialogContent,
@@ -14,11 +15,15 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { productFormSchema, type ProductFormData } from "./productFormSchema"
+import { productFormSchema, type ProductFormData } from "./editProductFormSchema"
 import { useState } from "react"
 import { toast } from "sonner"
 
-export function ProductForm() {
+type TEditProductFormProp = {
+  product: TProduct
+}
+
+export function EditProductForm({product}: TEditProductFormProp) {
   const [isOpen, setIsOpen] = useState(false);
   const { 
     register, 
@@ -41,24 +46,24 @@ export function ProductForm() {
 
       if (response.ok) {
         setIsOpen(false);
-        toast.success('Product created successfully!');
+        toast.success('Product updated successfully!');
         reset();
       }
     } catch (error) {
-      console.error('Error creating product:', error);
-      toast.error('Failed to create product');
+      console.error('Error updating product:', error);
+      toast.error('Failed to update product');
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button>Add Product</Button>
+        <Button>Edit Product</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
-            <DialogTitle>Create New Product</DialogTitle>
+            <DialogTitle>Edit Product</DialogTitle>
             <DialogDescription>
               Enter the Product Data.
             </DialogDescription>
@@ -73,6 +78,7 @@ export function ProductForm() {
                   id="title"
                   {...register("title")}
                   className={errors.title ? "border-red-500" : ""}
+                  defaultValue={product.title}
                 />
                 {errors.title && (
                   <p className="text-red-500 text-sm">{errors.title.message}</p>
@@ -91,6 +97,7 @@ export function ProductForm() {
                   step="0.01"
                   {...register("price")}
                   className={errors.price ? "border-red-500" : ""}
+                  defaultValue={product.price}
                 />
                 {errors.price && (
                   <p className="text-red-500 text-sm">{errors.price.message}</p>
@@ -107,6 +114,7 @@ export function ProductForm() {
                   id="description"
                   {...register("description")}
                   className={errors.description ? "border-red-500" : ""}
+                  defaultValue={product.description}
                 />
                 {errors.description && (
                   <p className="text-red-500 text-sm">{errors.description.message}</p>
@@ -120,9 +128,11 @@ export function ProductForm() {
               </Label>
               <div className="col-span-3">
                 <Input
+                  disabled
                   id="category"
                   {...register("category")}
                   className={errors.category ? "border-red-500" : ""}
+                  value={product.category}
                 />
                 {errors.category && (
                   <p className="text-red-500 text-sm">{errors.category.message}</p>
@@ -140,7 +150,7 @@ export function ProductForm() {
                   type="url"
                   {...register("image")}
                   className={errors.image ? "border-red-500" : ""}
-                  defaultValue={'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'}
+                  defaultValue={product.image}
                 />
                 {errors.image && (
                   <p className="text-red-500 text-sm">{errors.image.message}</p>
@@ -161,6 +171,7 @@ export function ProductForm() {
                   max="5"
                   {...register("rating.rate")}
                   className={errors.rating?.rate ? "border-red-500" : ""}
+                  defaultValue={product.rating.rate}
                 />
                 {errors.rating?.rate && (
                   <p className="text-red-500 text-sm">{errors.rating.rate.message}</p>
@@ -179,6 +190,7 @@ export function ProductForm() {
                   min="0"
                   {...register("rating.count")}
                   className={errors.rating?.count ? "border-red-500" : ""}
+                  defaultValue={product.rating.count}
                 />
                 {errors.rating?.count && (
                   <p className="text-red-500 text-sm">{errors.rating.count.message}</p>
@@ -187,7 +199,7 @@ export function ProductForm() {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Create Product</Button>
+            <Button type="submit">Update Product</Button>
           </DialogFooter>
         </form>
       </DialogContent>
