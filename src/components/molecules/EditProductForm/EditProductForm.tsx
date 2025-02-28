@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { productFormSchema, type ProductFormData } from "./editProductFormSchema"
+import { editProductFormSchema, type ProductFormData } from "./editProductFormSchema"
 import { useState } from "react"
 import { toast } from "sonner"
 
@@ -31,7 +31,7 @@ export function EditProductForm({product}: TEditProductFormProp) {
     formState: { errors },
     reset
   } = useForm<ProductFormData>({
-    resolver: zodResolver(productFormSchema)
+    resolver: zodResolver(editProductFormSchema)
   });
 
   const onSubmit = async (data: ProductFormData) => {
