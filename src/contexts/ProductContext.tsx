@@ -9,6 +9,7 @@ type TProductContextType = {
   setCategory: (category: string | null) => void;
   toggleOrder: () => void;
   isOrdered: boolean;
+  setCurrentPage: (page: number) => void;
 }
 
 type TProductProviderProps = { children: React.ReactNode; startProducts: TPaginatedData }
@@ -23,13 +24,15 @@ const ProductContext = createContext<TProductContextType>({
   }, 
   setCategory: () => {}, 
   toggleOrder: () => {},
-  isOrdered: false 
+  isOrdered: false,
+  setCurrentPage: () => {}
 });
 
 export function ProductProvider ({ children, startProducts }: TProductProviderProps) {
   const [products, setProducts] = useState<TPaginatedData>(startProducts);
   const [category, setCategory] = useState<string | null>(null);
   const [isOrdered, setIsOrdered] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const fetchProducts = async function (page: number, per_page: number, category: string | null, ) {
     const pageData: TPaginatedData = await apiFetchProductsService(page, per_page, category)
@@ -56,15 +59,16 @@ export function ProductProvider ({ children, startProducts }: TProductProviderPr
   }
 
   useEffect(() => {
-    fetchProducts(1, 6,category);
-  },[category]);
+    fetchProducts(currentPage, 6, category);
+  }, [category, currentPage]);
 
   return (
     <ProductContext.Provider value={{ 
       products, 
       setCategory, 
       toggleOrder,
-      isOrdered 
+      isOrdered,
+      setCurrentPage 
     }}>
       {children}
     </ProductContext.Provider>
