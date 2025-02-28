@@ -8,10 +8,12 @@ type TProductContextType = {
   setCategory: (category: string | null) => void;
 }
 
+type TProductProviderProps = { children: React.ReactNode; startProducts: TProduct[] }
+
 const ProductContext = createContext<TProductContextType>({ products: [], setCategory: () => {} });
 
-export function ProductProvider ({ children }: { children: React.ReactNode }) {
-  const [products, setProducts] = useState<TProduct[]>([]);
+export function ProductProvider ({ children, startProducts }: TProductProviderProps) {
+  const [products, setProducts] = useState<TProduct[]>(startProducts);
   const [category, setCategory] = useState<string | null>(null);
 
   const fetchProducts = async function (category: string | null) {
