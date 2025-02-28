@@ -18,7 +18,9 @@ export default async function Home() {
     </ProductProvider>
   );
 }
-// ----------------------------------------------------------------
+
+// -----------------------------using javascript hoisting-----------------------------------
+
 async function fetchCategories() {
   const response = await fetch('https://fakestoreapi.com/products/categories');
   return response.json();

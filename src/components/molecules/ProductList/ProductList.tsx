@@ -1,12 +1,7 @@
 'use client'
 
-// import { TProduct } from "@/@types/TProduct";
 import ProductCard from "../ProductCard/ProductCard";
 import { useProducts } from "@/contexts/ProductContext";
-
-// type TProductListProps = {
-//   products: TProduct[]
-// }
 
 export default function ProductsList() {
   const {products} = useProducts();
