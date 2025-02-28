@@ -1,11 +1,15 @@
-import { TProduct } from "@/@types/TProduct";
+'use client'
+
+// import { TProduct } from "@/@types/TProduct";
 import ProductCard from "../ProductCard/ProductCard";
+import { useProducts } from "@/contexts/ProductContext";
 
-type TProductListProps = {
-  products: TProduct[]
-}
+// type TProductListProps = {
+//   products: TProduct[]
+// }
 
-export default function ProductsList({products}: TProductListProps) {
+export default function ProductsList() {
+  const {products} = useProducts();
 
   return (
     <section aria-labelledby="products-list">
