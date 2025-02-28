@@ -1,6 +1,9 @@
 import { Button as ShadButton } from "@/components/ui/button"
+import { ButtonHTMLAttributes } from "react"
+import { VariantProps } from "class-variance-authority"
 
-type TButtonProps = {
+type TButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & 
+  VariantProps<typeof ShadButton> & {
   children: React.ReactNode;
 }
 
