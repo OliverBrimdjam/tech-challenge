@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Button from '@/components/atoms/Button/Button'
 import { getProductById } from '@/services/apiFetchService'
-
+import { EditProductForm } from '@/components/molecules/EditProductForm/EditProductForm'
 type Props = {
   params: {
     productId: string
@@ -34,7 +34,7 @@ export default async function ProductPage({ params }: Props) {
               <p className='text-sm font-bold'>count: {product.rating.count}</p>
           </div>
           <div className='flex flex-col gap-2 justify-start'>
-              <Button>Edit</Button>
+              <EditProductForm product={product} />
               <Button>Delete</Button>
           </div>
         </div>
