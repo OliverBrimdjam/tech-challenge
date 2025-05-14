@@ -5,14 +5,19 @@ import { EditProductForm } from '@/components/molecules/EditProductForm/EditProd
 import { DeleteProductForm } from '@/components/molecules/DeleteProductForm/DeleteProductForm'
 import Link from 'next/link'
 import { ArrowLeftIcon } from 'lucide-react'
+
 type Props = {
-  params: {
-    productId: string
-  }
+  params: Promise<{
+    productId: string;
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export default async function ProductPage({ params }: Props) {
-  const product = await getProductById(Number(params.productId));
+export default async function ProductPage({ 
+  params,
+}: Props) {
+  const resolvedParams = await params;
+  const product = await getProductById(Number(resolvedParams.productId));
 
   return (
     <>
